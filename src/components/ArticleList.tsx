@@ -4,7 +4,7 @@ export default async function ArticleList() {
     const articleList: ArticleBase[] = await listArticles();
     return (
         <div>
-            <h2>Article List</h2>
+            <h2>記事一覧</h2>
             <ul>
                 {articleList.map((article) => (
                     <li key={article.id}>

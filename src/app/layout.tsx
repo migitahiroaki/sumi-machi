@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ArticleList from "@/components/ArticleList";
+import NavigationMenu from "@/components/NavMenu";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,8 +29,20 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ArticleList/>
-        {children}
+        {/* Navigation Menu */}
+        <NavigationMenu />
+        <div className="flex h-screen pt-16">
+          {/* Left Sidebar */}
+          <aside className="w-1/4 bg-gray-100 p-4 border-r">
+            <h2 className="text-lg font-bold mb-4">記事一覧</h2>
+            <ArticleList />
+          </aside>
+
+          {/* Main Content */}
+          <main className="flex-1 p-4">
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   );

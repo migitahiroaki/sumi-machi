@@ -1,3 +1,5 @@
+import MetaInfo from "@/components/MetaInfo";
+import HtmlContent from "@/components/HtmlContent";
 import { getArticleContentDetail, listArticles, ArticleContentDetail } from "@/lib/microcms";
 
 export async function generateStaticParams() {
@@ -15,9 +17,14 @@ export default async function ArticleContentDetailPage(props: { params: Promise<
 
     return (
         <div>
-            <h2>{articleContentDetail.title}</h2>
-            <p>{articleContentDetail.publishedAt}</p>
-            <div dangerouslySetInnerHTML={{ __html: articleContentDetail.content }} />
+            <MetaInfo 
+                title={articleContentDetail.title}
+                categories={articleContentDetail.categories}
+                publishedAt={articleContentDetail.publishedAt}
+                revisedAt={articleContentDetail.revisedAt}
+            />
+            {/* display content */}
+            <HtmlContent content={articleContentDetail.content} />
         </div>
     );
 }
