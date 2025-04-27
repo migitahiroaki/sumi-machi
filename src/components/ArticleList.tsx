@@ -1,10 +1,10 @@
-import { listArticles, ArticleBase } from "@/lib/microcms";
+import { listArticles, Article } from "@/lib/microcms";
 
 export default async function ArticleList() {
-  const articleList: ArticleBase[] = await listArticles();
+  const articleList: Article[] = await listArticles();
   return (
     <div>
-      <h2>記事一覧</h2>
+      <h1>記事一覧</h1>
       <ul>
         {articleList.map((article) => {
           const date: Date = new Date(article.publishedAt);

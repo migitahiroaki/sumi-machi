@@ -1,20 +1,45 @@
 import { Category } from "@/lib/microcms";
 import moment from "moment";
 import { Fragment } from "react";
+import BreadCrumbs, { ListElement } from "./BreadCrumbs";
 
 export default function MetaInfo({
   title,
-  categories,
+  category,
+  tags,
   publishedAt,
   revisedAt,
 }: {
   title: string;
-  categories?: Category[];
+  category?: Category;
+  tags?: string[];
   publishedAt?: string;
   revisedAt?: string;
 }) {
+  const bcListElement: ListElement[] = [
+    {
+      label: "ホーム",
+      link: "/",
+    },
+  ];
+  if (category) {
+    if (category.parentCategory) {
+      bcListElement.push({
+        label: category.parentCategory.name,
+        link: `/category/${category.parentCategory.id}`,
+      });
+    }
+    bcListElement.push({
+      label: category.name,
+      link: `/category/${category.id}`,
+    });
+    bcListElement.push({ label: title });
+  }
   return (
     <Fragment>
+      {/* bread-crump list */}
+      <BreadCrumbs listElements={bcListElement} />
+
       <h1>{title}</h1>
       <div className="grid-cols-3 sm:grid-cols-6">
         {publishedAt && (
@@ -34,20 +59,20 @@ export default function MetaInfo({
             </div>
           </div>
         )}
-
-        {categories && categories.length > 0 && (
-          <div className="grid col-span-9 grid-cols-subgrid">
-            <div>カテゴリ:</div>
-            <div className="grid">
-              {categories.map((category) => (
-                <div className="grid col-span-2" key={category.id}>
-                  #{category.name}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
+      {/* tag list */}
+      {tags && (
+        <ul className="flex flex-wrap">
+          タグ
+          <li className="flex">
+            {tags.map((tag) => (
+              <span key={tag} className="badge badge-primary">
+                {tag}
+              </span>
+            ))}
+          </li>
+        </ul>
+      )}
     </Fragment>
   );
 }

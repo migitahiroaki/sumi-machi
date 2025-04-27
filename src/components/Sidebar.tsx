@@ -1,7 +1,11 @@
 export default function Sidebar({
   children,
+  position,
 }: Readonly<{
   children: React.ReactNode;
+  position: "left" | "right";
 }>) {
-  return <aside className="header bg-blue-300">{children}</aside>;
+  return (
+    <aside className={`sidebar-${position} bg-amber-200`}>{children}</aside>
+  );
 }

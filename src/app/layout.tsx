@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ArticleList from "@/components/ArticleList";
 import NavigationMenu from "@/components/NavMenu";
 import Header from "@/components/Header";
+import Sidebar from "@/components/Sidebar";
+import LatestArticleList from "@/components/LatestArticleList";
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,28 +33,25 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="grid-container">
-          <Header
-            brandName="住みよい町田"
-            tagline="町田での生活を発信していきます。"
-          />
+          {/* Header */}
+          <Header />
           {/* Navigation Menu */}
           <NavigationMenu />
 
           <div className="main-container">
             {/* Left Sidebar */}
-            <aside className="sidebar-left">
-              <ArticleList />
-            </aside>
-            {/* Main Content */}
-            <main className="main prose-sm bg-amber-500">{children}</main>
+            <Sidebar position="left">
+              <LatestArticleList />
+            </Sidebar>
 
-            <aside className="sidebar-right bg-amber-200">
+            {/* Main Content */}
+            <main className="main prose-sm bg-amber-500 p-8">{children}</main>
+
+            <Sidebar position="right">
               <p>サイドバー</p>
-            </aside>
+            </Sidebar>
           </div>
-          <footer className="footer bg-gray-200 text-center py-4">
-            © 2025 住みよい町田
-          </footer>
+          <Footer />
         </div>
       </body>
     </html>

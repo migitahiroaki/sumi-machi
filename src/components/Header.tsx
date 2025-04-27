@@ -1,14 +1,8 @@
-export default function Header({
-  brandName,
-  tagline,
-}: {
-  brandName: string;
-  tagline?: string;
-}) {
+export default function Header() {
   return (
-    <header className="header bg-blue-300">
-      <h1 className="text-2xl font-bold">{brandName}</h1>
-      {tagline && <p className="text-sm">{tagline}</p>}
+    <header id="header-brand" className="header bg-blue-300">
+      <h1 className="text-2xl font-bold">住みよい町田</h1>
+      <p className="text-sm">町田での生活を発信していきます。</p>
     </header>
   );
 }

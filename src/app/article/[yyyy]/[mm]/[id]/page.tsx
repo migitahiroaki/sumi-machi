@@ -1,10 +1,6 @@
 import MetaInfo from "@/components/MetaInfo";
 import HtmlContent from "@/components/HtmlContent";
-import {
-  getArticleContentDetail,
-  listArticles,
-  ArticleContentDetail,
-} from "@/lib/microcms";
+import { getArticleContentDetail, listArticles, Article } from "@/lib/microcms";
 
 export async function generateStaticParams() {
   const articles = await listArticles();
@@ -23,19 +19,24 @@ export default async function ArticleContentDetailPage(props: {
   params: Promise<{ id: string }>;
 }) {
   const resolvedParams = await props.params;
-  const articleContentDetail: ArticleContentDetail =
-    await getArticleContentDetail(resolvedParams.id);
+  // articleObjectResponse dosn't countain parentCategory.name.
+  const articleContentDetail: Article = await getArticleContentDetail(
+    resolvedParams.id
+  );
 
   return (
     <div>
       <MetaInfo
         title={articleContentDetail.title}
-        categories={articleContentDetail.categories}
+        category={articleContentDetail.category}
+        tags={articleContentDetail.tags}
         publishedAt={articleContentDetail.publishedAt}
         revisedAt={articleContentDetail.revisedAt}
       />
       {/* display content */}
-      <HtmlContent content={articleContentDetail.content} />
+      {articleContentDetail.content && (
+        <HtmlContent>{articleContentDetail.content}</HtmlContent>
+      )}
     </div>
   );
 }

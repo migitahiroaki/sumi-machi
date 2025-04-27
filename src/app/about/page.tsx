@@ -74,7 +74,7 @@ export default function AboutPage() {
   return (
     <div>
       <MetaInfo title="このブログについて" />
-      <HtmlContent content={aboutHtml} />
+      <HtmlContent>{aboutHtml}</HtmlContent>
     </div>
   );
 }

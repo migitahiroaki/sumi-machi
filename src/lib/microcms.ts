@@ -1,23 +1,18 @@
 import { createClient } from "microcms-js-sdk";
 import { categoryListToTrees } from "./list-util";
 
-export interface ArticleBase {
+export interface Article {
   id: string;
   title: string;
   publishedAt: string;
-}
-
-export interface ArticleContent extends ArticleBase {
-  content: string;
-}
-
-export interface ArticleContentDetail extends ArticleContent {
-  categories: Category[];
-  revisedAt: string;
+  category: Category;
+  tags: string[];
+  revisedAt?: string;
+  content?: string;
 }
 
 export interface AllArticlesWithTotal {
-  contents: ArticleBase[];
+  contents: Article[];
   totalCount: number;
 }
 
@@ -53,23 +48,28 @@ const client = createClient({
   apiKey: MICROCMS_API_KEY,
 });
 
-export const listArticles = async (): Promise<ArticleBase[]> => {
-  const res = await client.getList<ArticleBase>({
+export const listArticles = async (
+  fields?: string[],
+  depth?: 0 | 1 | 2 | 3,
+  orders?: string,
+  limit?: number
+): Promise<Article[]> => {
+  const res = await client.getList<Article>({
     endpoint: "article",
     queries: {
-      fields: ["id", "title", "publishedAt"],
-      limit: 10,
-      // orders: '-publishedAt'
+      fields: fields,
+      depth: depth,
+      limit: limit || 16,
+      orders: orders || "-publishedAt",
     },
   });
 
   return res.contents;
 };
 
-export const getArticleContentDetail = async (
-  id: string
-): Promise<ArticleContentDetail> => {
-  const res = await client.get<ArticleContentDetail>({
+export const getArticleContentDetail = async (id: string): Promise<Article> => {
+  // articleObjectResponse dosn't countain parentCategory.name.
+  const articleRes = await client.get<Article>({
     endpoint: "article",
     contentId: id,
     queries: {
@@ -77,13 +77,55 @@ export const getArticleContentDetail = async (
         "id",
         "title",
         "content",
-        "categories",
+        "category",
+        "tags",
         "publishedAt",
         "revisedAt",
       ],
     },
   });
+  // so, fetch separately
+  const parentCategoryRes = articleRes.category.parentCategory
+    ? await client.get<Category>({
+        endpoint: "category",
+        contentId: articleRes.category.parentCategory.id,
+        queries: {
+          fields: ["id", "name"],
+        },
+      })
+    : void 0;
+  // merge parentCategory to articleObjectResponse
+  return {
+    ...articleRes,
+    category: {
+      id: articleRes.category.id,
+      name: articleRes.category.name,
+      parentCategory: parentCategoryRes,
+    },
+  };
 
+  return articleRes;
+};
+
+export const getCategory = async (id: string): Promise<Category> => {
+  const res = await client.get<Category>({
+    endpoint: "category",
+    contentId: id,
+    queries: {
+      fields: ["id", "name", "parentCategory"],
+    },
+  });
+  return res;
+};
+
+export const listAllCategories = async (): Promise<AllCategoriesWithTotal> => {
+  const res = await client.getList<Category>({
+    endpoint: "category",
+    queries: {
+      fields: ["id", "name", "parentCategory"],
+      depth: 1, // max depth of category is 2 (parent, child)
+    },
+  });
   return res;
 };
 
