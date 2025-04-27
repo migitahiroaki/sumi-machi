@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ArticleList from "@/components/ArticleList";
 import NavigationMenu from "@/components/NavMenu";
+import Header from "@/components/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,19 +30,29 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* Navigation Menu */}
-        <NavigationMenu />
-        <div className="flex h-screen pt-16">
-          {/* Left Sidebar */}
-          <aside className="w-1/4 bg-gray-100 p-4 border-r">
-            <h2 className="text-lg font-bold mb-4">記事一覧</h2>
-            <ArticleList />
-          </aside>
+        <div className="grid-container">
+          <Header
+            brandName="住みよい町田"
+            tagline="町田での生活を発信していきます。"
+          />
+          {/* Navigation Menu */}
+          <NavigationMenu />
 
-          {/* Main Content */}
-          <main className="flex-1 p-4">
-            {children}
-          </main>
+          <div className="main-container">
+            {/* Left Sidebar */}
+            <aside className="sidebar-left">
+              <ArticleList />
+            </aside>
+            {/* Main Content */}
+            <main className="main prose-sm bg-amber-500">{children}</main>
+
+            <aside className="sidebar-right bg-amber-200">
+              <p>サイドバー</p>
+            </aside>
+          </div>
+          <footer className="footer bg-gray-200 text-center py-4">
+            © 2025 住みよい町田
+          </footer>
         </div>
       </body>
     </html>

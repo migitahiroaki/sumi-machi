@@ -1,7 +1,7 @@
 import HtmlContent from "@/components/HtmlContent";
 import MetaInfo from "@/components/MetaInfo";
 
-const aboutHtml = /*html*/`
+const aboutHtml = /*html*/ `
 <h1>About - 住みよい町田</h1>
 <h2>ブログの由来</h2>
 <p>住む場所に迷ってる人にぜひ町田をおすすめしたい、町田に住んでる人の生活をより便利にしたいという思いからです。</p>
@@ -68,14 +68,13 @@ const aboutHtml = /*html*/`
 <h4>柴犬カフェ事業</h4>
 <p>単体での事業ではなく、他の店舗を兼ね、看板犬と触れ合えるようにします。<br>
 また、予約制で出張犬カフェなんかやりたいです。</p>
-`
+`;
 
 export default function AboutPage() {
-
-    return (
-        <div>
-            <MetaInfo title="このブログについて" />
-            <HtmlContent content={aboutHtml} />
-        </div>
-    );
+  return (
+    <div>
+      <MetaInfo title="このブログについて" />
+      <HtmlContent content={aboutHtml} />
+    </div>
+  );
 }

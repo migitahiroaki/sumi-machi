@@ -1,5 +1,5 @@
-import { createClient } from 'microcms-js-sdk';
-import { categoryListToTrees } from './list-util';
+import { createClient } from "microcms-js-sdk";
+import { categoryListToTrees } from "./list-util";
 
 export interface ArticleBase {
   id: string;
@@ -8,7 +8,7 @@ export interface ArticleBase {
 }
 
 export interface ArticleContent extends ArticleBase {
-  content: string,
+  content: string;
 }
 
 export interface ArticleContentDetail extends ArticleContent {
@@ -38,52 +38,63 @@ export interface AllCategoriesWithTotal {
   totalCount: number;
 }
 
-const MICROCMS_API_KEY = process.env.MICROCMS_API_KEY || '';
-const MICROCMS_SERVICE_DOMAIN = process.env.MICROCMS_SERVICE_DOMAIN || '';
+const MICROCMS_API_KEY = process.env.MICROCMS_API_KEY || "";
+const MICROCMS_SERVICE_DOMAIN = process.env.MICROCMS_SERVICE_DOMAIN || "";
 
 if (!MICROCMS_API_KEY || !MICROCMS_SERVICE_DOMAIN) {
-    throw new Error('MICROCMS_API_KEY or MICROCMS_SERVICE_DOMAIN is not set in environment variables.');
+  throw new Error(
+    "MICROCMS_API_KEY or MICROCMS_SERVICE_DOMAIN is not set in environment variables."
+  );
 }
 
 // Initialize Client SDK.
 const client = createClient({
   serviceDomain: MICROCMS_SERVICE_DOMAIN,
-  apiKey: MICROCMS_API_KEY
+  apiKey: MICROCMS_API_KEY,
 });
 
-export const listArticles = async(): Promise<ArticleBase[]> => {
+export const listArticles = async (): Promise<ArticleBase[]> => {
   const res = await client.getList<ArticleBase>({
-    endpoint: 'article',
+    endpoint: "article",
     queries: {
-      fields: ['id', 'title'],
+      fields: ["id", "title", "publishedAt"],
       limit: 10,
       // orders: '-publishedAt'
-    }
+    },
   });
 
   return res.contents;
-}
+};
 
-export const getArticleContentDetail = async (id: string): Promise<ArticleContentDetail> => {
+export const getArticleContentDetail = async (
+  id: string
+): Promise<ArticleContentDetail> => {
   const res = await client.get<ArticleContentDetail>({
-    endpoint: 'article',
+    endpoint: "article",
     contentId: id,
     queries: {
-      fields: ['id', 'title', 'content', 'categories', 'publishedAt', 'revisedAt'],
-    }
+      fields: [
+        "id",
+        "title",
+        "content",
+        "categories",
+        "publishedAt",
+        "revisedAt",
+      ],
+    },
   });
 
   return res;
-}
+};
 
-export const listCategoryTree = async(): Promise<TreeNodeCategory[]> => {
+export const listCategoryTree = async (): Promise<TreeNodeCategory[]> => {
   const res = await client.getList<Category>({
-    endpoint: 'category',
+    endpoint: "category",
     queries: {
-      fields: ['id', 'name', 'parentCategory'],
-      depth: 1
-    }
+      fields: ["id", "name", "parentCategory"],
+      depth: 1,
+    },
   });
   const tree = categoryListToTrees(res.contents);
   return tree;
-}
+};

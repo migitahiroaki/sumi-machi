@@ -1,8 +1,10 @@
+import { Fragment } from "react";
+
 export default function HtmlContent({ content }: { content: string }) {
-    return (
-        <div className="prose">
-            {/* HTML フラグメントをレンダリング */}
-            <div dangerouslySetInnerHTML={{ __html: content }} />
-        </div>
-    );
+  return (
+    <Fragment>
+      {/* HTML フラグメントをレンダリング */}
+      <div dangerouslySetInnerHTML={{ __html: content }} />
+    </Fragment>
+  );
 }
