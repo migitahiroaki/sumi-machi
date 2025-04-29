@@ -1,8 +1,18 @@
 import HtmlContent from "@/components/HtmlContent";
-import MetaInfo from "@/components/MetaInfo";
+import MetaInfo from "@/components/ContentInfo";
+import { pageTitle } from "@/lib/constant";
+
+const PAGE_NAME = "このブログについて";
+
+export async function generateMetadata() {
+  return {
+    title: pageTitle(PAGE_NAME),
+    description: "ブログの運営者情報やブログの目的を紹介します。",
+  };
+}
 
 const aboutHtml = /*html*/ `
-<h1>About - 住みよい町田</h1>
+<h1>この</h1>
 <h2>ブログの由来</h2>
 <p>住む場所に迷ってる人にぜひ町田をおすすめしたい、町田に住んでる人の生活をより便利にしたいという思いからです。</p>
 <h2 id=>運営者情報</h2>

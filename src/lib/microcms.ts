@@ -4,11 +4,21 @@ import { categoryListToTrees } from "./list-util";
 export interface Article {
   id: string;
   title: string;
+  content: string;
   publishedAt: string;
   category: Category;
   tags: string[];
+  description?: string;
   revisedAt?: string;
-  content?: string;
+}
+export interface ArticleMetadata {
+  id: string;
+  title: string;
+  description: string;
+  category?: Category;
+  tags?: string[];
+  publishedAt?: string;
+  revisedAt?: string;
 }
 
 export interface AllArticlesWithTotal {
@@ -65,6 +75,19 @@ export const listArticles = async (
   });
 
   return res.contents;
+};
+export const getArticleMetadata = async (
+  id: string,
+  fields?: string[]
+): Promise<ArticleMetadata> => {
+  const res = await client.get<ArticleMetadata>({
+    endpoint: "article",
+    contentId: id,
+    queries: {
+      fields: fields || ["id", "title", "description", "tags"],
+    },
+  });
+  return res;
 };
 
 export const getArticleContentDetail = async (id: string): Promise<Article> => {
