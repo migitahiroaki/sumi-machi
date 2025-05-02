@@ -1,6 +1,6 @@
 import HtmlContent from "@/components/HtmlContent";
-import MetaInfo from "@/components/ContentInfo";
 import { pageTitle } from "@/lib/constant";
+import BlogLayout from "@/layouts/BlogLayout";
 
 const PAGE_NAME = "このブログについて";
 
@@ -12,8 +12,7 @@ export async function generateMetadata() {
 }
 
 const aboutHtml = /*html*/ `
-<h1>この</h1>
-<h2>ブログの由来</h2>
+<h2>このブログの由来</h2>
 <p>住む場所に迷ってる人にぜひ町田をおすすめしたい、町田に住んでる人の生活をより便利にしたいという思いからです。</p>
 <h2 id=>運営者情報</h2>
 <table>
@@ -32,7 +31,7 @@ const aboutHtml = /*html*/ `
         </tr>
         <tr>
             <th colspan="1" rowspan="1"><p>趣味</p></th>
-            <td colspan="1" rowspan="1"><p>diy、 川遊び、 bbq、 fps</p></td>
+            <td colspan="1" rowspan="1"><p>DIY、 川遊び、 BBQ、 FPS</p></td>
         </tr>
     </tbody>
 </table>
@@ -81,10 +80,10 @@ const aboutHtml = /*html*/ `
 `;
 
 export default function AboutPage() {
+  const title = "このブログについて";
   return (
-    <div>
-      <MetaInfo title="このブログについて" />
+    <BlogLayout title={title} breadcrumbElements={[{ label: title }]}>
       <HtmlContent>{aboutHtml}</HtmlContent>
-    </div>
+    </BlogLayout>
   );
 }

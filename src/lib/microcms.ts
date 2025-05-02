@@ -1,46 +1,27 @@
-import { createClient } from "microcms-js-sdk";
-import { categoryListToTrees } from "./list-util";
+import {
+  createClient,
+  MicroCMSContentId,
+  MicroCMSDate,
+  MicroCMSListResponse,
+} from "microcms-js-sdk";
 
-export interface Article {
-  id: string;
-  title: string;
-  content: string;
-  publishedAt: string;
-  category: Category;
-  tags: string[];
-  description?: string;
-  revisedAt?: string;
-}
-export interface ArticleMetadata {
-  id: string;
+interface MicroCMSContentData extends MicroCMSContentId, MicroCMSDate {}
+
+export interface Article extends MicroCMSContentData {
   title: string;
   description: string;
-  category?: Category;
-  tags?: string[];
-  publishedAt?: string;
-  revisedAt?: string;
+  content: string;
+  category: Category;
+  tags: Tag[];
+  eyecatch?: string;
 }
 
-export interface AllArticlesWithTotal {
-  contents: Article[];
-  totalCount: number;
-}
-
-export interface Category {
-  id: string;
+export interface Category extends MicroCMSContentData {
   name: string;
-  parentCategory?: Category;
 }
 
-export interface TreeNodeCategory {
-  id: string;
+export interface Tag extends MicroCMSContentData {
   name: string;
-  children: TreeNodeCategory[];
-}
-
-export interface AllCategoriesWithTotal {
-  contents: Category[];
-  totalCount: number;
 }
 
 const MICROCMS_API_KEY = process.env.MICROCMS_API_KEY || "";
@@ -63,71 +44,28 @@ export const listArticles = async (
   depth?: 0 | 1 | 2 | 3,
   orders?: string,
   limit?: number
-): Promise<Article[]> => {
-  const res = await client.getList<Article>({
-    endpoint: "article",
+): Promise<MicroCMSListResponse<Article>> => {
+  return await client.getList<Article>({
+    endpoint: "articles",
     queries: {
       fields: fields,
       depth: depth,
-      limit: limit || 16,
-      orders: orders || "-publishedAt",
+      limit: limit,
+      orders: orders,
     },
   });
-
-  return res.contents;
 };
-export const getArticleMetadata = async (
+
+export const getArticle = async (
   id: string,
   fields?: string[]
-): Promise<ArticleMetadata> => {
-  const res = await client.get<ArticleMetadata>({
-    endpoint: "article",
-    contentId: id,
+): Promise<Article> => {
+  return await client.get<Article>({
+    endpoint: `articles/${id}`,
     queries: {
-      fields: fields || ["id", "title", "description", "tags"],
+      fields,
     },
   });
-  return res;
-};
-
-export const getArticleContentDetail = async (id: string): Promise<Article> => {
-  // articleObjectResponse dosn't countain parentCategory.name.
-  const articleRes = await client.get<Article>({
-    endpoint: "article",
-    contentId: id,
-    queries: {
-      fields: [
-        "id",
-        "title",
-        "content",
-        "category",
-        "tags",
-        "publishedAt",
-        "revisedAt",
-      ],
-    },
-  });
-  // so, fetch separately
-  const parentCategoryRes = articleRes.category.parentCategory
-    ? await client.get<Category>({
-        endpoint: "category",
-        contentId: articleRes.category.parentCategory.id,
-        queries: {
-          fields: ["id", "name"],
-        },
-      })
-    : void 0;
-  // merge parentCategory to articleObjectResponse
-  return {
-    ...articleRes,
-    category: {
-      id: articleRes.category.id,
-      name: articleRes.category.name,
-      parentCategory: parentCategoryRes,
-    },
-  };
-
-  return articleRes;
 };
 
 export const getCategory = async (id: string): Promise<Category> => {
@@ -139,27 +77,4 @@ export const getCategory = async (id: string): Promise<Category> => {
     },
   });
   return res;
-};
-
-export const listAllCategories = async (): Promise<AllCategoriesWithTotal> => {
-  const res = await client.getList<Category>({
-    endpoint: "category",
-    queries: {
-      fields: ["id", "name", "parentCategory"],
-      depth: 1, // max depth of category is 2 (parent, child)
-    },
-  });
-  return res;
-};
-
-export const listCategoryTree = async (): Promise<TreeNodeCategory[]> => {
-  const res = await client.getList<Category>({
-    endpoint: "category",
-    queries: {
-      fields: ["id", "name", "parentCategory"],
-      depth: 1,
-    },
-  });
-  const tree = categoryListToTrees(res.contents);
-  return tree;
 };

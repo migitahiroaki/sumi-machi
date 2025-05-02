@@ -1,5 +1,5 @@
+import BlogLayout from "@/layouts/BlogLayout";
 import { pageTitle, SITE_DESCRIPTION } from "@/lib/constant";
-import { Fragment } from "react";
 
 // This is a Next.js 13+ app directory page
 export async function generateMetadata() {
@@ -11,9 +11,9 @@ export async function generateMetadata() {
 
 export default function Home() {
   return (
-    <Fragment>
-      <h1>hello world</h1>
-      <p>this is an example</p>
-    </Fragment>
+    <BlogLayout title={pageTitle("トップページ")} breadcrumbElements={[]}>
+      <h1>トップページ</h1>
+      <p>hello world!</p>
+    </BlogLayout>
   );
 }

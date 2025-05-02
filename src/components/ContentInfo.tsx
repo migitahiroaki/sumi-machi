@@ -1,78 +1,50 @@
-import { Category } from "@/lib/microcms";
+import { Tag } from "@/lib/microcms";
 import moment from "moment";
+import { Badge } from "./ui/badge";
 import { Fragment } from "react";
-import BreadCrumbs, { ListElement } from "./BreadCrumbs";
 
-export default function MetaInfo({
-  title,
-  category,
-  tags,
-  publishedAt,
-  revisedAt,
-}: {
-  title: string;
-  category?: Category;
-  tags?: string[];
+export interface ContentInfoProps {
+  tags: Tag[];
   publishedAt?: string;
   revisedAt?: string;
-}) {
-  const bcListElement: ListElement[] = [
-    {
-      label: "ホーム",
-      link: "/",
-    },
-  ];
-  if (category) {
-    if (category.parentCategory) {
-      bcListElement.push({
-        label: category.parentCategory.name,
-        link: `/category/${category.parentCategory.id}`,
-      });
-    }
-    bcListElement.push({
-      label: category.name,
-      link: `/category/${category.id}`,
-    });
-    bcListElement.push({ label: title });
-  }
-  return (
-    <Fragment>
-      {/* bread-crump list */}
-      <BreadCrumbs listElements={bcListElement} />
+}
 
-      <h1>{title}</h1>
-      <div className="grid-cols-3 sm:grid-cols-6">
+export default function ContentInfo({ props }: { props: ContentInfoProps }) {
+  const tags: Tag[] = props.tags;
+  const publishedAt: string | undefined = props.publishedAt;
+  const revisedAt: string | undefined = props.revisedAt;
+  return (
+    <aside className="my-4">
+      <div className="flex justify-start gap-8">
         {publishedAt && (
-          <div className="grid col-span-3 grid-cols-subgrid">
-            <div className="grid">公開日:</div>
-            <div className="grid col-span-2">
+          <div>
+            <span>公開日:　</span>
+            <time dateTime={publishedAt}>
               {moment(publishedAt).format("YYYY / MM / DD")}
-            </div>
+            </time>
           </div>
         )}
 
-        {revisedAt && publishedAt != revisedAt && (
-          <div className="grid col-span-4 grid-cols-subgrid">
-            <div className="grid">更新日:</div>
-            <div className="grid col-span-3">
+        {revisedAt && revisedAt != publishedAt && (
+          <div>
+            <span>更新日:　</span>
+            <time dateTime={revisedAt}>
               {moment(revisedAt).format("YYYY / MM / DD")}
-            </div>
+            </time>
           </div>
         )}
       </div>
       {/* tag list */}
       {tags && (
-        <ul className="flex flex-wrap">
-          タグ
-          <li className="flex">
-            {tags.map((tag) => (
-              <span key={tag} className="badge badge-primary">
-                {tag}
-              </span>
-            ))}
-          </li>
-        </ul>
+        <Fragment>
+          <span>タグ: </span>
+          {tags.map((tag: Tag) => (
+            <Badge className="mx-2" key={tag.id}>
+              {tag.name}
+            </Badge>
+          ))}
+        </Fragment>
       )}
-    </Fragment>
+    </aside>
   );
 }
