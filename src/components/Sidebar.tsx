@@ -5,7 +5,5 @@ export default function Sidebar({
   children: React.ReactNode;
   position: "left" | "right";
 }>) {
-  return (
-    <aside className={`sidebar-${position} bg-amber-200`}>{children}</aside>
-  );
+  return <aside className={`sidebar-${position}`}>{children}</aside>;
 }

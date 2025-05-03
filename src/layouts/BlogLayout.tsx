@@ -5,6 +5,9 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import LatestArticles from "@/components/LatestArticles";
 import Sidebar from "@/components/Sidebar";
+import React, { Suspense } from "react";
+
+const Toc = React.lazy(() => import("@/components/Toc"));
 
 export default function BlogLayout({
   children,
@@ -12,12 +15,14 @@ export default function BlogLayout({
   description,
   breadcrumbElements,
   contentInfoProps,
+  showToc,
 }: Readonly<{
   children: React.ReactNode;
   title: string;
   description: string;
   breadcrumbElements: BreadcrumbElement[];
   contentInfoProps?: ContentInfoProps;
+  showToc?: boolean;
 }>) {
   const jsonLd = {
     "@context": "https://schema.org",
@@ -65,9 +70,13 @@ export default function BlogLayout({
             {children}
           </main>
 
-          <Sidebar position="right">
-            <p>サイドバー</p>
-          </Sidebar>
+          {showToc && (
+            <Sidebar position="right">
+              <Suspense fallback={<p>Loading heavy component...</p>}>
+                <Toc />
+              </Suspense>
+            </Sidebar>
+          )}
         </div>
 
         <Footer />

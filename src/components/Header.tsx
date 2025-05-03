@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -29,9 +28,9 @@ export default function Header({
         <NavigationMenuList>
           {navMenuItems.map((item) => (
             <NavigationMenuItem key={item.href}>
-              <Link href={item.href} passHref>
-                <NavigationMenuLink>{item.title}</NavigationMenuLink>
-              </Link>
+              <NavigationMenuLink href={item.href}>
+                {item.title}
+              </NavigationMenuLink>
             </NavigationMenuItem>
           ))}
         </NavigationMenuList>

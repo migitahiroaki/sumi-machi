@@ -2,6 +2,7 @@ import HtmlContent from "@/components/HtmlContent";
 import { listArticles, Article, getArticle, Category } from "@/lib/microcms";
 import BlogLayout from "@/layouts/BlogLayout";
 import { pageTitle } from "@/lib/constant";
+// import { getToc } from "@/lib/toc";
 
 export async function generateMetadata(props: {
   params: Promise<{ id: string }>;
@@ -31,6 +32,7 @@ export default async function ArticleContentDetailPage(props: {
 
   const article: Article = await getArticle(resolvedParams.id);
   const category: Category = article.category;
+  // console.log(getToc(article.content));
 
   return (
     <BlogLayout
@@ -48,6 +50,7 @@ export default async function ArticleContentDetailPage(props: {
         publishedAt: article.publishedAt,
         revisedAt: article.revisedAt,
       }}
+      showToc={true}
     >
       {/* display content */}
       <HtmlContent>{article.content}</HtmlContent>

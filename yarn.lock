@@ -3066,6 +3066,11 @@ to-regex-range@^5.0.1:
   dependencies:
     is-number "^7.0.0"
 
+tocbot@^4.36.2:
+  version "4.36.2"
+  resolved "https://registry.yarnpkg.com/tocbot/-/tocbot-4.36.2.tgz#a5df7ce19ed2fcc331486cfe44f84ca31e62570e"
+  integrity sha512-1LxV7n9t0C9kC6MaX/bMxdmwdzINawnHdhB9TikWrzK2XVcPN+2ugqsQIikdi3oHuRP51dB3WTcikmddKwm7HQ==
+
 ts-api-utils@^2.0.1:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/ts-api-utils/-/ts-api-utils-2.1.0.tgz#595f7094e46eed364c13fd23e75f9513d29baf91"
