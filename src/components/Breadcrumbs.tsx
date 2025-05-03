@@ -25,7 +25,6 @@ export default function Breadcrumbs({
     },
     ...elements,
   ];
-  console.log(elementsWithHome);
   return (
     <Breadcrumb>
       <BreadcrumbList>

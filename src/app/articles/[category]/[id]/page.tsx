@@ -1,20 +1,20 @@
-// import MetaInfo from "@/components/ContentInfo";
 import HtmlContent from "@/components/HtmlContent";
 import { listArticles, Article, getArticle, Category } from "@/lib/microcms";
-// import { pageTitle } from "@/lib/constant";
 import BlogLayout from "@/layouts/BlogLayout";
+import { pageTitle } from "@/lib/constant";
 
-// export async function generateMetadata(props: {
-//   params: Promise<{ id: string }>;
-// }) {
-//   const resolvedParams = await props.params;
-//   const metaData: ArticleMetadata = await getArticleMetadata(resolvedParams.id);
-//   return {
-//     title: pageTitle(metaData.title),
-//     description: metaData.description,
-//     keywords: metaData.tags?.join(", "),
-//   };
-// }
+export async function generateMetadata(props: {
+  params: Promise<{ id: string }>;
+}) {
+  const resolvedParams = await props.params;
+  const articleMeta: { title: string; description: string } = await getArticle(
+    resolvedParams.id
+  );
+  return {
+    title: pageTitle(articleMeta.title),
+    description: articleMeta.description,
+  };
+}
 
 export async function generateStaticParams() {
   const articles: Article[] = (await listArticles()).contents;
@@ -35,6 +35,7 @@ export default async function ArticleContentDetailPage(props: {
   return (
     <BlogLayout
       title={article.title}
+      description={article.description}
       breadcrumbElements={[
         { label: "記事", link: "/articles" },
         { label: category.name, link: `/articles/${category.id}` },

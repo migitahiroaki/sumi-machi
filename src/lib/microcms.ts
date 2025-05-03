@@ -7,13 +7,19 @@ import {
 
 interface MicroCMSContentData extends MicroCMSContentId, MicroCMSDate {}
 
+export interface EyeCatch {
+  url: string;
+  height: number;
+  width: number;
+}
+
 export interface Article extends MicroCMSContentData {
   title: string;
   description: string;
   content: string;
   category: Category;
   tags: Tag[];
-  eyecatch?: string;
+  eyecatch?: EyeCatch;
 }
 
 export interface Category extends MicroCMSContentData {
@@ -33,6 +39,22 @@ if (!MICROCMS_API_KEY || !MICROCMS_SERVICE_DOMAIN) {
   );
 }
 
+interface CommonQueryParams {
+  fields?: string[];
+  depth?: 0 | 1 | 2 | 3;
+  richEditorFormat?: "html" | "object";
+}
+
+interface ListQueryParams extends CommonQueryParams {
+  ids?: string[];
+  fields?: string[];
+  filters?: string;
+  q?: string;
+  limit?: number;
+  offset?: number;
+  orders?: string;
+}
+
 // Initialize Client SDK.
 const client = createClient({
   serviceDomain: MICROCMS_SERVICE_DOMAIN,
@@ -40,41 +62,42 @@ const client = createClient({
 });
 
 export const listArticles = async (
-  fields?: string[],
-  depth?: 0 | 1 | 2 | 3,
-  orders?: string,
-  limit?: number
+  queryParams?: ListQueryParams
 ): Promise<MicroCMSListResponse<Article>> => {
   return await client.getList<Article>({
     endpoint: "articles",
-    queries: {
-      fields: fields,
-      depth: depth,
-      limit: limit,
-      orders: orders,
-    },
+    queries: queryParams,
   });
 };
 
 export const getArticle = async (
   id: string,
-  fields?: string[]
+  queryParams?: CommonQueryParams
 ): Promise<Article> => {
   return await client.get<Article>({
-    endpoint: `articles/${id}`,
-    queries: {
-      fields,
-    },
+    endpoint: "articles",
+    contentId: id,
+    queries: queryParams,
   });
 };
 
-export const getCategory = async (id: string): Promise<Category> => {
+export const listCategories = async (
+  queryParams?: ListQueryParams
+): Promise<MicroCMSListResponse<Category>> => {
+  return await client.getList<Category>({
+    endpoint: "categories",
+    queries: queryParams,
+  });
+};
+
+export const getCategory = async (
+  id: string,
+  queryParams?: CommonQueryParams
+): Promise<Category> => {
   const res = await client.get<Category>({
-    endpoint: "category",
+    endpoint: "categories",
     contentId: id,
-    queries: {
-      fields: ["id", "name", "parentCategory"],
-    },
+    queries: queryParams,
   });
   return res;
 };

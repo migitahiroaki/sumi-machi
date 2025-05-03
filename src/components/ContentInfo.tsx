@@ -1,7 +1,6 @@
 import { Tag } from "@/lib/microcms";
 import moment from "moment";
-import { Badge } from "./ui/badge";
-import { Fragment } from "react";
+import TagBadge from "./Tag";
 
 export interface ContentInfoProps {
   tags: Tag[];
@@ -14,7 +13,7 @@ export default function ContentInfo({ props }: { props: ContentInfoProps }) {
   const publishedAt: string | undefined = props.publishedAt;
   const revisedAt: string | undefined = props.revisedAt;
   return (
-    <aside className="my-4">
+    <aside>
       <div className="flex justify-start gap-8">
         {publishedAt && (
           <div>
@@ -33,18 +32,16 @@ export default function ContentInfo({ props }: { props: ContentInfoProps }) {
             </time>
           </div>
         )}
+        {tags && (
+          <div className="justify-start">
+            <span>タグ: </span>
+            {tags.map((tag: Tag) => (
+              <TagBadge key={`ContentInfo-Tag-${tag.id}`} tag={tag} />
+            ))}
+          </div>
+        )}
       </div>
       {/* tag list */}
-      {tags && (
-        <Fragment>
-          <span>タグ: </span>
-          {tags.map((tag: Tag) => (
-            <Badge className="mx-2" key={tag.id}>
-              {tag.name}
-            </Badge>
-          ))}
-        </Fragment>
-      )}
     </aside>
   );
 }

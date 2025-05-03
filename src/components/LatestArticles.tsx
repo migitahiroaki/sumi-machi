@@ -2,24 +2,24 @@ import { Article, listArticles } from "@/lib/microcms";
 import { Fragment } from "react";
 import ArticleCard from "./ArticleCard";
 
-export default async function LatestArticleList() {
+export default async function LatestArticles() {
   const articleList: Article[] = (
-    await listArticles(
-      [
+    await listArticles({
+      fields: [
         "id",
         "title",
         "description",
         "content",
+        "eyecatch",
         "publishedAt",
         "category.id",
         "category.name",
         "tags.id",
         "tags.name",
       ],
-      0,
-      "-publishedAt",
-      4
-    )
+      depth: 1,
+      orders: "-publishedAt",
+    })
   ).contents;
   return (
     <Fragment>
