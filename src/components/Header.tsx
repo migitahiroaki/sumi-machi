@@ -17,11 +17,11 @@ export default function Header({
     },
     {
       title: "Category",
-      href: "/category",
+      href: "/categories",
     },
   ];
   return (
-    <header id="header-brand" className="header bg-blue-300">
+    <header id="header-brand" className="header bg-white">
       <span className="text-2xl font-bold">住みよい町田</span>
       {/* Navigation Menu */}
       <NavigationMenu>

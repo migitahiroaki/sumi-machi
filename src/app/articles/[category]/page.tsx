@@ -37,9 +37,17 @@ export default async function ArticleContentDetailPage(props: {
   const resolvedParams = await props.params;
   const articles: Article[] = (
     await listArticles({
-      fields: ["id", "title", "description", "content", "category.id"],
+      fields: [
+        "id",
+        "title",
+        "description",
+        "content",
+        "category.id",
+        "tags.id",
+        "tags.name",
+      ],
       filters: `category[equals]${resolvedParams.category}`,
-      depth: 0,
+      depth: 1,
     })
   ).contents;
   const category: Category = await getCategory(resolvedParams.category, {
@@ -49,7 +57,7 @@ export default async function ArticleContentDetailPage(props: {
 
   return (
     <BlogLayout
-      title={pageTitle(`カテゴリ: ${category.name}`)}
+      title={`${category.name} カテゴリの記事一覧`}
       description={`カテゴリ「${category.name}」(${category.id}) に属する記事一覧`}
       breadcrumbElements={[
         { label: "記事", link: "/articles" },

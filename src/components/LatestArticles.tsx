@@ -1,6 +1,6 @@
 import { Article, listArticles } from "@/lib/microcms";
 import { Fragment } from "react";
-import ArticleCard from "./atoms/ArticleCard";
+import ArticleCardSmall from "./atoms/ArticleCardHorizontal";
 
 export default async function LatestArticles() {
   const articleList: Article[] = (
@@ -29,7 +29,7 @@ export default async function LatestArticles() {
           {articleList.map((article) => {
             return (
               <li key={article.id}>
-                <ArticleCard article={article} />
+                <ArticleCardSmall article={article} />
               </li>
             );
           })}
