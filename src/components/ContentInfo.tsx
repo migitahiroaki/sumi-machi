@@ -34,7 +34,6 @@ export default function ContentInfo({ props }: { props: ContentInfoProps }) {
         )}
         {tags && (
           <div className="justify-start">
-            <span>タグ: </span>
             {tags.map((tag: Tag) => (
               <TagBadge key={`ContentInfo-Tag-${tag.id}`} tag={tag} />
             ))}

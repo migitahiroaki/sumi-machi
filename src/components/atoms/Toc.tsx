@@ -11,14 +11,19 @@ const Toc = () => {
       // 目次を抽出したい要素のクラス名
       contentSelector: ".main",
       // 目次として抽出する見出しタグ
-      headingSelector: "h2, h3, h4",
+      headingSelector: "h2, h3",
     });
 
     // 不要になったインスタンスを削除
     return () => tocbot.destroy();
   }, []);
 
-  return <nav className="toc">目次</nav>;
+  return (
+    <nav id="nav-toc" className="p-2">
+      目次
+      <div className="toc"></div>
+    </nav>
+  );
 };
 
 export default Toc;

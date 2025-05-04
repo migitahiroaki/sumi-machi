@@ -26,7 +26,7 @@ export default function Breadcrumbs({
     ...elements,
   ];
   return (
-    <Breadcrumb>
+    <Breadcrumb className="p-2 ml-4">
       <BreadcrumbList>
         {elementsWithHome.map(({ label, link }, index: number) => (
           <Fragment key={`BreadcrumbFragment${index}`}>

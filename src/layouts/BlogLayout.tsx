@@ -1,5 +1,4 @@
 import { BreadcrumbElement } from "@/components/Breadcrumbs";
-import Breadcrumbs from "@/components/Breadcrumbs";
 import ContentInfo, { ContentInfoProps } from "@/components/ContentInfo";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -53,9 +52,7 @@ export default function BlogLayout({
 
       <div className="grid-container">
         {/* Header */}
-        <Header>
-          <Breadcrumbs elements={breadcrumbElements} />
-        </Header>
+        <Header breadcrumbElements={breadcrumbElements} />
 
         <div className="main-container bg-teal-50">
           {/* Left Sidebar */}

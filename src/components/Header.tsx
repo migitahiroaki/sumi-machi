@@ -1,14 +1,16 @@
+import { FaSearch } from "react-icons/fa";
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
 } from "./ui/navigation-menu";
+import Breadcrumbs, { BreadcrumbElement } from "./Breadcrumbs";
 
 export default function Header({
-  children,
+  breadcrumbElements,
 }: Readonly<{
-  children: React.ReactNode;
+  breadcrumbElements: BreadcrumbElement[];
 }>) {
   const navMenuItems: { title: string; href: string }[] = [
     {
@@ -22,20 +24,23 @@ export default function Header({
   ];
   return (
     <header id="header-brand" className="header bg-white">
-      <span className="text-2xl font-bold">住みよい町田</span>
-      {/* Navigation Menu */}
-      <NavigationMenu>
-        <NavigationMenuList>
-          {navMenuItems.map((item) => (
-            <NavigationMenuItem key={item.href}>
-              <NavigationMenuLink href={item.href}>
-                {item.title}
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-          ))}
-        </NavigationMenuList>
-      </NavigationMenu>
-      {children}
+      <div className="flex items-center justify-between m-4">
+        <div className="text-4xl font-bold">住みよいまちだ</div>
+        {/* Navigation Menu */}
+        <NavigationMenu>
+          <NavigationMenuList>
+            {navMenuItems.map((item) => (
+              <NavigationMenuItem key={item.href}>
+                <NavigationMenuLink href={item.href}>
+                  {item.title}
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
+        <FaSearch />
+      </div>
+      <Breadcrumbs elements={breadcrumbElements} />
     </header>
   );
 }
