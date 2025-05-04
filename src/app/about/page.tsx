@@ -1,8 +1,7 @@
 import HtmlContent from "@/components/atoms/HtmlContent";
 import BlogLayout from "@/layouts/BlogLayout";
-import { pageTitle } from "@/lib/constant";
 
-const title = pageTitle("このブログについて");
+const title = "このブログについて";
 const description = "このブログの由来、目的、運営者情報を紹介。";
 
 export const metadata = {
@@ -11,9 +10,9 @@ export const metadata = {
 };
 
 const aboutHtml = /*html*/ `
-<h2>このブログの由来</h2>
+<h2 id="yurai">このブログの由来</h2>
 <p>住む場所に迷ってる人にぜひ町田をおすすめしたい、町田に住んでる人の生活をより便利にしたいという思いからです。</p>
-<h2 id=>運営者情報</h2>
+<h2 id="author">運営者情報</h2>
 <table>
     <tbody>
         <tr>
@@ -34,18 +33,18 @@ const aboutHtml = /*html*/ `
         </tr>
     </tbody>
 </table>
-<h2>私が町田に住んだきっかけ</h2>
+<h2 id="kikkake">私が町田に住んだきっかけ</h2>
 <p>転職し、フルリモートになったので、周辺環境に自然が多いというのを必須条件に、首都圏へのアクセスと地価のバランスを考えて住む場所を検討しました。<br>
     金町、高尾、府中、野川、日野、立川も候補にあり、毎週末足を運んで、最も気に入ったのが町田でした。
 </p>
-<h2>このブログの目的</h2>
+<h2 id="mokuteki">このブログの目的</h2>
 <ul>
     <li>人脈を広げる</li>
     <li>ページ内広告で収益を得る</li>
     <li>町田市での事業を始めた場合の宣伝</li>
     <li>技術・備忘録情報の発信</li>
 </ul>
-<h3>事業候補</h3>
+<h3 id="jigyoukouho">事業候補</h3>
 <p>やりたいこと</p>
 <h4 id="haff2b4f0d4">プログラム・システム開発事業</h4>
 <p>各個に合わせた iot デバイス、クラウド基盤 などの開発を行います。<br>
@@ -83,7 +82,8 @@ export default function AboutPage() {
     <BlogLayout
       title={title}
       description={description}
-      breadcrumbElements={[{ label: title }]}
+      breadcrumbElements={[{ label: "このブログについて" }]}
+      showToc={true}
     >
       <HtmlContent>{aboutHtml}</HtmlContent>
     </BlogLayout>

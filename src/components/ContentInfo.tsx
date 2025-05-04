@@ -14,9 +14,9 @@ export default function ContentInfo({ props }: { props: ContentInfoProps }) {
   const revisedAt: string | undefined = props.revisedAt;
   return (
     <aside>
-      <div className="flex justify-start gap-8">
+      <div className="flex flex-wrap gap-8">
         {publishedAt && (
-          <div>
+          <div className="text-sm text-gray-500">
             <span>公開日:　</span>
             <time dateTime={publishedAt}>
               {moment(publishedAt).format("YYYY / MM / DD")}
@@ -25,7 +25,7 @@ export default function ContentInfo({ props }: { props: ContentInfoProps }) {
         )}
 
         {revisedAt && revisedAt != publishedAt && (
-          <div>
+          <div className="text-sm text-gray-500">
             <span>更新日:　</span>
             <time dateTime={revisedAt}>
               {moment(revisedAt).format("YYYY / MM / DD")}

@@ -1,4 +1,3 @@
-import { FaSearch } from "react-icons/fa";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -6,6 +5,7 @@ import {
   NavigationMenuList,
 } from "./ui/navigation-menu";
 import Breadcrumbs, { BreadcrumbElement } from "./Breadcrumbs";
+import Search from "./dialog/Search";
 
 export default function Header({
   breadcrumbElements,
@@ -38,7 +38,13 @@ export default function Header({
             ))}
           </NavigationMenuList>
         </NavigationMenu>
-        <FaSearch />
+        <Search />
+        {/* <Button variant="outline">
+          <span className="text-gray-400">Search</span>
+          <FaSearch className="ml-2" />
+        </Button> */}
+        {/* <button className="inline-flex items-center hover:bg-accent hover:text-accent-foreground rounded px-2 py-0.5 border border-black">
+        </button> */}
       </div>
       <Breadcrumbs elements={breadcrumbElements} />
     </header>

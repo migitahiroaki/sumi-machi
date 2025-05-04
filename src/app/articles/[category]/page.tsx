@@ -6,7 +6,6 @@ import {
   listCategories,
 } from "@/lib/microcms";
 import BlogLayout from "@/layouts/BlogLayout";
-import { pageTitle } from "@/lib/constant";
 import ArticleList from "@/components/ArticleList";
 
 export async function generateMetadata(props: {
@@ -15,7 +14,7 @@ export async function generateMetadata(props: {
   const resolvedParams = await props.params;
   const category: { name: string } = await getCategory(resolvedParams.category);
   return {
-    title: pageTitle(`カテゴリ: ${category.name}`),
+    title: `カテゴリ: ${category.name}`,
     description: `カテゴリ「${category.name}」に属する記事一覧`,
   };
 }
