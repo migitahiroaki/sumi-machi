@@ -90,6 +90,8 @@
   top: 10vh;
   height: 60vh;
   border: 1px solid blue;
+  margin: 4px;
+  padding: 16px;
   grid-area: sidebar-left;
 }
 
@@ -103,6 +105,8 @@
   height: 50vh;
   border: 1px solid skyblue;
   grid-area: sidebar-right;
+  margin: 4px;
+  padding: 16px;
 }
 
 .footer {
@@ -198,7 +202,7 @@
   }
 }
 .toc {
-  background-color: aqua;
+  font-size: var(--text-xs) /* 0.875rem = 14px */;
 }
 
 .toc li {

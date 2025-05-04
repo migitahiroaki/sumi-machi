@@ -7,7 +7,7 @@ import LatestArticles from "@/components/LatestArticles";
 import Sidebar from "@/components/Sidebar";
 import React, { Suspense } from "react";
 
-const Toc = React.lazy(() => import("@/components/Toc"));
+const Toc = React.lazy(() => import("@/components/atoms/Toc"));
 
 export default function BlogLayout({
   children,

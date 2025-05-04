@@ -1,4 +1,4 @@
-import HtmlContent from "@/components/HtmlContent";
+import HtmlContent from "@/components/atoms/HtmlContent";
 import { listArticles, Article, getArticle, Category } from "@/lib/microcms";
 import BlogLayout from "@/layouts/BlogLayout";
 import { pageTitle } from "@/lib/constant";

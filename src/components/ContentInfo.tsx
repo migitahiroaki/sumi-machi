@@ -1,6 +1,6 @@
 import { Tag } from "@/lib/microcms";
 import moment from "moment";
-import TagBadge from "./Tag";
+import TagBadge from "./atoms/Tag";
 
 export interface ContentInfoProps {
   tags: Tag[];

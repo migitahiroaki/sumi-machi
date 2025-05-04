@@ -1,6 +1,6 @@
 import { Article, listArticles } from "@/lib/microcms";
 import { Fragment } from "react";
-import ArticleCard from "./ArticleCard";
+import ArticleCard from "./atoms/ArticleCard";
 
 export default async function LatestArticles() {
   const articleList: Article[] = (
