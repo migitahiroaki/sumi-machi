@@ -6,6 +6,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { HOME } from "@/lib/constant";
 import { Fragment } from "react";
 
 export interface BreadcrumbElement {
@@ -18,26 +19,24 @@ export default function Breadcrumbs({
 }: {
   elements: BreadcrumbElement[];
 }) {
-  const elementsWithHome: BreadcrumbElement[] = [
-    {
-      label: "ホーム",
-      link: "/",
-    },
-    ...elements,
-  ];
+  const elementsWithHome: BreadcrumbElement[] = [HOME, ...elements];
   return (
     <Breadcrumb className="p-2 ml-4">
       <BreadcrumbList>
         {elementsWithHome.map(({ label, link }, index: number) => (
           <Fragment key={`BreadcrumbFragment${index}`}>
-            <BreadcrumbItem key={`BreadcrumbItem-${index}`}>
-              {link ? (
-                <BreadcrumbLink href={link}>{label}</BreadcrumbLink>
-              ) : (
+            {index < elementsWithHome.length - 1 ? (
+              <>
+                <BreadcrumbItem key={`BreadcrumbItem-${index}`}>
+                  <BreadcrumbLink href={link ?? "#"}>{label}</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            ) : (
+              <BreadcrumbItem key={`BreadcrumbItem-${index}`}>
                 <BreadcrumbPage>{label}</BreadcrumbPage>
-              )}
-            </BreadcrumbItem>
-            {index < elementsWithHome.length - 1 && <BreadcrumbSeparator />}
+              </BreadcrumbItem>
+            )}
           </Fragment>
         ))}
       </BreadcrumbList>

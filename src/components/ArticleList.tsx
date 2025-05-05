@@ -1,5 +1,5 @@
 import { Article } from "@/lib/microcms";
-import ArticleCardSmall from "./atoms/ArticleCardHorizontal";
+import ArticleCardHorizontal from "./atoms/ArticleCardHorizontal";
 
 export default async function ArticleList({
   articles,
@@ -11,7 +11,7 @@ export default async function ArticleList({
       <ul>
         {articles.map((article: Article) => (
           <li key={`Article-${article.id}`}>
-            <ArticleCardSmall article={article} />
+            <ArticleCardHorizontal article={article} />
           </li>
         ))}
       </ul>

@@ -29,36 +29,40 @@ export async function ArticlesByCategory() {
   ).contents;
 
   const categoryIdToArticle = new Map<string, Article[]>();
-  const categories: Set<Category> = new Set();
+  const categoryIdToCategory = new Map<string, Category>();
 
   articles.forEach((article: Article) => {
-    categories.add(article.category);
     const k: string = article.category.id;
     const v: Article[] = categoryIdToArticle.get(k) ?? [];
+    categoryIdToCategory.set(k, article.category);
     v.push(article);
     categoryIdToArticle.set(k, v);
   });
 
-  const orderedCategories = Array.from(categories).sort((a, b) =>
-    a.name.localeCompare(b.name, "ja")
+  const orderedCategories = Array.from(categoryIdToCategory.values()).sort(
+    (a, b) => a.name.localeCompare(b.name, "ja")
   );
 
   return (
     <Accordion type="single" collapsible className="w-full">
       {orderedCategories &&
         orderedCategories.map((category: Category) => {
+          console.log(category);
           const articlesInCategory: Article[] =
             categoryIdToArticle.get(category.id) ?? [];
           return (
             <AccordionItem
-              key={`CatAccItem-${category.id}`}
+              key={`CategoryAccordionItem-${category.id}`}
               value={category.id}
             >
-              <AccordionTrigger>
+              <AccordionTrigger key={`CategoryAccordionTrigger-${category.id}`}>
                 {`${category.name} (${articlesInCategory.length})`}{" "}
               </AccordionTrigger>
-              <AccordionContent>
-                <ArticleList articles={articlesInCategory} />
+              <AccordionContent key={`CategoryAccordionContent-${category.id}`}>
+                <ArticleList
+                  key={`CategoryArticleList-${category.id}`}
+                  articles={articlesInCategory}
+                />
                 <Link href={`articles/${category.id}`}>
                   {/* <span className="inline-flex items-center hover:underline"> */}
                   <div className="inline-flex w-full justify-center hover:underline">

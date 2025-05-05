@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import LatestArticles from "@/components/LatestArticles";
 import Sidebar from "@/components/Sidebar";
+import { SITE_NAME } from "@/lib/constant";
 import React, { Suspense } from "react";
 
 const Toc = React.lazy(() => import("@/components/atoms/Toc"));
@@ -35,7 +36,7 @@ export default function BlogLayout({
     },
     publisher: {
       "@type": "Organization",
-      name: "住みよい町田",
+      name: SITE_NAME,
       url: "https://sumi-machi.com/",
       // "logo": {
       //   "@type": "ImageObject",
@@ -56,9 +57,10 @@ export default function BlogLayout({
 
         <div className="main-container bg-teal-50">
           {/* Left Sidebar */}
-          <Sidebar position="left">
-            <LatestArticles />
-          </Sidebar>
+          {/* <Sidebar position="left">
+            {/* <LatestArticles /> */}
+          {/* サイドバー */}
+          {/* </Sidebar> */}
 
           {/* Main Content */}
           <main className="main prose-sm bg-sky-100 p-8">

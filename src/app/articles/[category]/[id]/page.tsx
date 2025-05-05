@@ -1,6 +1,7 @@
 import HtmlContent from "@/components/atoms/HtmlContent";
 import { listArticles, Article, getArticle, Category } from "@/lib/microcms";
 import BlogLayout from "@/layouts/BlogLayout";
+import { ARTICLE } from "@/lib/constant";
 
 export async function generateMetadata(props: {
   params: Promise<{ id: string }>;
@@ -37,7 +38,7 @@ export default async function ArticleContentDetailPage(props: {
       title={article.title}
       description={article.description}
       breadcrumbElements={[
-        { label: "記事", link: "/articles" },
+        ARTICLE,
         { label: category.name, link: `/articles/${category.id}` },
         {
           label: article.title,

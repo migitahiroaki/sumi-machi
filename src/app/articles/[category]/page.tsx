@@ -7,6 +7,7 @@ import {
 } from "@/lib/microcms";
 import BlogLayout from "@/layouts/BlogLayout";
 import ArticleList from "@/components/ArticleList";
+import { ARTICLE } from "@/lib/constant";
 
 export async function generateMetadata(props: {
   params: Promise<{ category: string }>;
@@ -58,10 +59,7 @@ export default async function ArticleContentDetailPage(props: {
     <BlogLayout
       title={`${category.name} カテゴリの記事一覧`}
       description={`カテゴリ「${category.name}」(${category.id}) に属する記事一覧`}
-      breadcrumbElements={[
-        { label: "記事", link: "/articles" },
-        { label: category.name },
-      ]}
+      breadcrumbElements={[ARTICLE, { label: category.name }]}
     >
       {/* display content */}
       <ArticleList articles={articles} />

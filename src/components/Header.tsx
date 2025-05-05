@@ -5,7 +5,6 @@ import {
   NavigationMenuList,
 } from "./ui/navigation-menu";
 import Breadcrumbs, { BreadcrumbElement } from "./Breadcrumbs";
-import Search from "./dialog/Search";
 
 export default function Header({
   breadcrumbElements,
@@ -13,6 +12,7 @@ export default function Header({
   breadcrumbElements: BreadcrumbElement[];
 }>) {
   const navMenuItems: { title: string; href: string }[] = [
+    { title: "Articles", href: "/articles" },
     {
       title: "About",
       href: "/about",
@@ -24,13 +24,14 @@ export default function Header({
   ];
   return (
     <header id="header-brand" className="header bg-white">
-      <div className="flex items-center justify-between m-4">
+      <div className="flex flex-wrap items-center justify-between m-4">
+        {/* FIXME: replace with banner */}
         <div className="text-4xl font-bold">住みよいまちだ</div>
         {/* Navigation Menu */}
-        <NavigationMenu>
+        <NavigationMenu className="mr-12">
           <NavigationMenuList>
             {navMenuItems.map((item) => (
-              <NavigationMenuItem key={item.href}>
+              <NavigationMenuItem key={item.href} className="px-4">
                 <NavigationMenuLink href={item.href}>
                   {item.title}
                 </NavigationMenuLink>
@@ -38,13 +39,7 @@ export default function Header({
             ))}
           </NavigationMenuList>
         </NavigationMenu>
-        <Search />
-        {/* <Button variant="outline">
-          <span className="text-gray-400">Search</span>
-          <FaSearch className="ml-2" />
-        </Button> */}
-        {/* <button className="inline-flex items-center hover:bg-accent hover:text-accent-foreground rounded px-2 py-0.5 border border-black">
-        </button> */}
+        {/* <Search /> */}
       </div>
       <Breadcrumbs elements={breadcrumbElements} />
     </header>
