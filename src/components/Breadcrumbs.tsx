@@ -21,7 +21,7 @@ export default function Breadcrumbs({
 }) {
   const elementsWithHome: BreadcrumbElement[] = [HOME, ...elements];
   return (
-    <Breadcrumb className="p-2 ml-4">
+    <Breadcrumb>
       <BreadcrumbList>
         {elementsWithHome.map(({ label, link }, index: number) => (
           <Fragment key={`BreadcrumbFragment${index}`}>

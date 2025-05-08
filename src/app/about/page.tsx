@@ -1,5 +1,5 @@
 import HtmlContent from "@/components/atoms/HtmlContent";
-import BlogLayout from "@/layouts/BlogLayout";
+import MainContent from "@/components/MainContent";
 
 const title = "このブログについて";
 const description = "このブログの由来、目的、運営者情報を紹介。";
@@ -38,17 +38,30 @@ const aboutHtml = /*html*/ `
     金町、高尾、府中、野川、日野、立川も候補にあり、毎週末足を運んで、最も気に入ったのが町田でした。
 </p>
 <h2 id="mokuteki">このブログの目的</h2>
-<ul>
-    <li>人脈を広げる</li>
-    <li>ページ内広告で収益を得る</li>
-    <li>町田市での事業を始めた場合の宣伝</li>
-    <li>技術・備忘録情報の発信</li>
+    <h3>日記として</h3>
+    <p>タグやカテゴリで整理することで、またここにいきたいな〜とかを自分のブログで振り返ることができそう</p>
+
+    <h3>人脈を広げる</h3>
+    <p>アウトドアや、犬友達を作りたいです。</p>
+
+    <h3>町田市での事業を始めた場合の宣伝</h3>
+    <p>ニーズを調査したり、広告宣伝に活用できるかも</p>
+
+    <h3>技術・備忘録情報の発信</h3>
+    <p>主にクラウド技術の情報を発信していきたいです。また、ポートフォリオの役割にもなるかと思います</p>
+
+    <h3>ページ内広告で収益を得る</h3>
+    <p>得る！！</p>
+
+    <h3>町田市の地価、地位を向上する</h3>
+    <p>上げる！！</p>
+
 </ul>
 <h3 id="jigyoukouho">事業候補</h3>
 <p>やりたいこと</p>
 <h4 id="haff2b4f0d4">プログラム・システム開発事業</h4>
 <p>各個に合わせた iot デバイス、クラウド基盤 などの開発を行います。<br>
-まずは<strong>無償</strong>(私の実績としてブログで紹介する条件付きで)<strong>ボランティア</strong>から始めたいです。</p>
+まずは<strong>無償</strong>から始めたいです。</p>
 <h4>スーパー買い物代行事業</h4>
 <p>元手がいらないので、要望があればすぐにでも始められます。<br>
 ウォーキングアプリのデイリーミッションをこなせてお得かも？</p>
@@ -79,13 +92,14 @@ const aboutHtml = /*html*/ `
 
 export default function AboutPage() {
   return (
-    <BlogLayout
+    <MainContent
+      pageId="about"
       title={title}
       description={description}
       breadcrumbElements={[{ label: "このブログについて" }]}
       showToc={true}
     >
       <HtmlContent>{aboutHtml}</HtmlContent>
-    </BlogLayout>
+    </MainContent>
   );
 }

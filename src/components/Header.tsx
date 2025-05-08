@@ -4,13 +4,8 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "./ui/navigation-menu";
-import Breadcrumbs, { BreadcrumbElement } from "./Breadcrumbs";
 
-export default function Header({
-  breadcrumbElements,
-}: Readonly<{
-  breadcrumbElements: BreadcrumbElement[];
-}>) {
+export default function Header() {
   const navMenuItems: { title: string; href: string }[] = [
     { title: "Articles", href: "/articles" },
     {
@@ -26,7 +21,8 @@ export default function Header({
     <header id="header-brand" className="header bg-white">
       <div className="flex flex-wrap items-center justify-between m-4">
         {/* FIXME: replace with banner */}
-        <div className="text-4xl font-bold">住みよいまちだ</div>
+        <div className="text-4xl font-bold">すみよいまちだ</div>
+
         {/* Navigation Menu */}
         <NavigationMenu className="mr-12">
           <NavigationMenuList>
@@ -41,7 +37,6 @@ export default function Header({
         </NavigationMenu>
         {/* <Search /> */}
       </div>
-      <Breadcrumbs elements={breadcrumbElements} />
     </header>
   );
 }

@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer
       id="footer-brand"
-      className="footer bg-gray-200 text-center py-16 my-8"
+      className="footer bg-gray-200 text-center py-16 my-8 min-h-50"
     >
       <hr />
       <p>

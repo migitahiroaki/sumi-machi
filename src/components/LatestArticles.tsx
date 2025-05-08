@@ -1,3 +1,4 @@
+import "server-only";
 import { Article, listArticles } from "@/lib/microcms";
 import { Fragment } from "react";
 import ArticleCardSmall from "./atoms/ArticleCardMinimal";

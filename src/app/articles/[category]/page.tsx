@@ -1,3 +1,4 @@
+import "server-only";
 import {
   listArticles,
   Article,
@@ -5,9 +6,9 @@ import {
   getCategory,
   listCategories,
 } from "@/lib/microcms";
-import BlogLayout from "@/layouts/BlogLayout";
 import ArticleList from "@/components/ArticleList";
 import { ARTICLE } from "@/lib/constant";
+import MainContent from "@/components/MainContent";
 
 export async function generateMetadata(props: {
   params: Promise<{ category: string }>;
@@ -56,13 +57,14 @@ export default async function ArticleContentDetailPage(props: {
   });
 
   return (
-    <BlogLayout
+    <MainContent
+      pageId={category.id}
       title={`${category.name} カテゴリの記事一覧`}
       description={`カテゴリ「${category.name}」(${category.id}) に属する記事一覧`}
       breadcrumbElements={[ARTICLE, { label: category.name }]}
     >
       {/* display content */}
       <ArticleList articles={articles} />
-    </BlogLayout>
+    </MainContent>
   );
 }

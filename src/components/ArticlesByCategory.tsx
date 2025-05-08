@@ -47,7 +47,6 @@ export async function ArticlesByCategory() {
     <Accordion type="single" collapsible className="w-full">
       {orderedCategories &&
         orderedCategories.map((category: Category) => {
-          console.log(category);
           const articlesInCategory: Article[] =
             categoryIdToArticle.get(category.id) ?? [];
           return (
