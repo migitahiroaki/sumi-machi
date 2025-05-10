@@ -3,9 +3,10 @@ import { TRUNCATE_TEXT_THRESHOLD_PC } from "@/lib/constant";
 import { stripTagsFromHtml } from "@/lib/html";
 import { fallbackEyecatch } from "@/lib/image";
 // import { microCMSLoader } from "@/lib/loader";
-import { Article } from "@/lib/microcms";
+import { Article, Tag } from "@/lib/microcms";
 import Image from "next/image";
 import Link from "next/link";
+import TagBadge from "./Tag";
 
 export default async function ArticleCardStacked({
   article,
@@ -26,7 +27,7 @@ export default async function ArticleCardStacked({
       href={`/articles/${article.category.id}/${article.id}`}
       className="text-blue-500 self-start"
     >
-      <div className="border rounded-md p-4 flex flex-col max-w-80 min-h-50 bg-white hover:bg-gray-50 shadow">
+      <div className="border rounded-md p-3 flex flex-col max-w-100 min-h-60 bg-white hover:bg-gray-50 shadow">
         <div className="relative aspect-3/2 overflow-hidden rounded-md mb-2">
           <Image
             //   loader={microCMSLoader}
@@ -36,9 +37,18 @@ export default async function ArticleCardStacked({
             style={{ objectFit: "cover" }}
           />
         </div>
-        <p className="text-sm font-semibold mb-2">{article.title}</p>
+        <p className="text-sm font-semibold mb-2 h-12 overflow-hidden">
+          {article.title}
+        </p>
+        <div className="justify-start">
+          {article.tags.map((tag: Tag) => (
+            <TagBadge key={`ContentInfo-Tag-${tag.id}`} tag={tag} />
+          ))}
+        </div>
         {/* <p className="text-gray-600 text-sm line-clamp-2 mb-2"> */}
-        <p className="text-gray-600 text-xs truncate mb-2">{strippedContent}</p>
+        <p className="text-gray-600 text-xs mb-2 min-h-14 max-h-40 line-clamp-1 sm:line-clamp-2">
+          {strippedContent}
+        </p>
       </div>
     </Link>
   );

@@ -22,8 +22,6 @@ export default function MainContent({
   contentInfoProps?: ContentInfoProps;
   showToc?: boolean;
 }>) {
-  //   Update toc in sidebar
-
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
