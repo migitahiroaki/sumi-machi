@@ -1,11 +1,18 @@
+import { SidebarPosition, SidebarType } from "@/lib/constant";
+import React from "react";
+
 export default function Sidebar({
   children,
   position,
+  type,
 }: Readonly<{
-  children: React.ReactNode;
-  position: "left" | "right";
+  children?: React.ReactNode;
+  position: SidebarPosition;
+  type: SidebarType;
 }>) {
   return (
-    <aside className={`sidebar-${position} bg-amber-200`}>{children}</aside>
+    <aside id={type} className={`${position}`}>
+      {React.Children.count(children) > 0 && children}
+    </aside>
   );
 }

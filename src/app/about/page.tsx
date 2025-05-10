@@ -1,21 +1,18 @@
-import HtmlContent from "@/components/HtmlContent";
-import MetaInfo from "@/components/ContentInfo";
-import { pageTitle } from "@/lib/constant";
+import HtmlContent from "@/components/atoms/HtmlContent";
+import MainContent from "@/components/MainContent";
 
-const PAGE_NAME = "このブログについて";
+const title = "このブログについて";
+const description = "このブログの由来、目的、運営者情報を紹介。";
 
-export async function generateMetadata() {
-  return {
-    title: pageTitle(PAGE_NAME),
-    description: "ブログの運営者情報やブログの目的を紹介します。",
-  };
-}
+export const metadata = {
+  title,
+  description,
+};
 
 const aboutHtml = /*html*/ `
-<h1>この</h1>
-<h2>ブログの由来</h2>
+<h2 id="yurai">このブログの由来</h2>
 <p>住む場所に迷ってる人にぜひ町田をおすすめしたい、町田に住んでる人の生活をより便利にしたいという思いからです。</p>
-<h2 id=>運営者情報</h2>
+<h2 id="author">運営者情報</h2>
 <table>
     <tbody>
         <tr>
@@ -32,26 +29,39 @@ const aboutHtml = /*html*/ `
         </tr>
         <tr>
             <th colspan="1" rowspan="1"><p>趣味</p></th>
-            <td colspan="1" rowspan="1"><p>diy、 川遊び、 bbq、 fps</p></td>
+            <td colspan="1" rowspan="1"><p>DIY、 川遊び、 BBQ、 FPS</p></td>
         </tr>
     </tbody>
 </table>
-<h2>私が町田に住んだきっかけ</h2>
+<h2 id="kikkake">私が町田に住んだきっかけ</h2>
 <p>転職し、フルリモートになったので、周辺環境に自然が多いというのを必須条件に、首都圏へのアクセスと地価のバランスを考えて住む場所を検討しました。<br>
     金町、高尾、府中、野川、日野、立川も候補にあり、毎週末足を運んで、最も気に入ったのが町田でした。
 </p>
-<h2>このブログの目的</h2>
-<ul>
-    <li>人脈を広げる</li>
-    <li>ページ内広告で収益を得る</li>
-    <li>町田市での事業を始めた場合の宣伝</li>
-    <li>技術・備忘録情報の発信</li>
+<h2 id="mokuteki">このブログの目的</h2>
+    <h3>日記として</h3>
+    <p>タグやカテゴリで整理することで、またここにいきたいな〜とかを自分のブログで振り返ることができそう</p>
+
+    <h3>人脈を広げる</h3>
+    <p>アウトドアや、犬友達を作りたいです。</p>
+
+    <h3>町田市での事業を始めた場合の宣伝</h3>
+    <p>ニーズを調査したり、広告宣伝に活用できるかも</p>
+
+    <h3>技術・備忘録情報の発信</h3>
+    <p>主にクラウド技術の情報を発信していきたいです。また、ポートフォリオの役割にもなるかと思います</p>
+
+    <h3>ページ内広告で収益を得る</h3>
+    <p>得る！！</p>
+
+    <h3>町田市の地価、地位を向上する</h3>
+    <p>上げる！！</p>
+
 </ul>
-<h3>事業候補</h3>
+<h3 id="jigyoukouho">事業候補</h3>
 <p>やりたいこと</p>
 <h4 id="haff2b4f0d4">プログラム・システム開発事業</h4>
 <p>各個に合わせた iot デバイス、クラウド基盤 などの開発を行います。<br>
-まずは<strong>無償</strong>(私の実績としてブログで紹介する条件付きで)<strong>ボランティア</strong>から始めたいです。</p>
+まずは<strong>無償</strong>から始めたいです。</p>
 <h4>スーパー買い物代行事業</h4>
 <p>元手がいらないので、要望があればすぐにでも始められます。<br>
 ウォーキングアプリのデイリーミッションをこなせてお得かも？</p>
@@ -82,9 +92,14 @@ const aboutHtml = /*html*/ `
 
 export default function AboutPage() {
   return (
-    <div>
-      <MetaInfo title="このブログについて" />
+    <MainContent
+      pageId="about"
+      title={title}
+      description={description}
+      breadcrumbElements={[{ label: "このブログについて" }]}
+      showToc={true}
+    >
       <HtmlContent>{aboutHtml}</HtmlContent>
-    </div>
+    </MainContent>
   );
 }
